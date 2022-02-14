@@ -15,28 +15,62 @@
     <style>
         .headBox {
             width: 100%;
-            height: 200px;
+            height: 100px;
             background-color: #E5E5E5;
         }
 
         .logoBox {
+
             background-color: white;
+            margin: 30px 30px 30px 100px;
         }
 
         .inputBox {
+            width: 80%;
+            height: 150px;
             background: #DAD8D8;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            margin: auto;
+
+            box-shadow: 0px 3px 5px 0px gray;
+            padding: 20px;
+        }
+
+        .wrap{
+            width : 1700px;
+            margin: 30px auto 0px auto;
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            color: gray;
+        }
+        .inputComment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: gray;
         }
 
         .bestBoardslist {
             width: 100%;
             height: 200px;
             background-color: #E9DADA;
+            margin-top: 30px;
         }
 
         .boardsList {
             width: 100%;
-            height: 200px;
+            height: 300px;
             background-color: #E9DADA;
+
         }
     </style>
 </head>
@@ -45,59 +79,191 @@
 
     </div>
     <div class="logoBox">
-        <h1>Heritage</h1>
-        <h3> 내 취향이 모두의 문화가 되는 곳</h3>
+        <p style="text-align:left;">
+            <h1> Heritage </h1>
+            <h5> 내 취향이 모두의 문화가 되는 곳</h5>
+        </p>
+
     </div>
     <div class="inputBox">
-        ID: <input type="text"/>
-        PW: <input type="text"/>
-        <select>
-            <option>영화</option>
-            <option>TV</option>
-            <option>책</option>
-            <option>연극</option>
-            <option>음악</option>
-            <option>etc</option>
-        </select>
-        Title : <input type="text"/>
+        <div class="wrap">
+            <div class="inputId">
+                <input type="inputId" class="form-control" id="inputId" placeholder="ID" >
+            </div>
+            <div class="inputPw">
+                            <input type="inputPw" class="form-control" id="inputPw" placeholder="PW" >
+                        </div>
+            <div class="inputSector">
+                            <div class="col-md">
+                                <div class="form-floating">
+                                    <select class="form-select" id="floatingSelectGrid">
+                                        <option value="1">영화</option>
+                                        <option value="2">TV</option>
+                                        <option value="3">책</option>
+                                        <option value="4">연극</option>
+                                        <option value="5">음악</option>
+                                        <option value="6">etc</option>
+                                    </select>
+                                    <label for="floatingSelectGrid">Select Sector</label>
+                                </div>
+                            </div>
+                        </div>
+            <div class="inputTitle">
+                            <input type="inputTitle" class="form-control" id="inputTitle" placeholder="Title" >
+                        </div>
+        </div>
+        <div class="inputComment">
+            <div class="form-floating">
+              <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+              <label for="floatingTextarea">Comments</label>
+            </div>
+        </div>
 
-        <p><textarea>Comment:</textarea></p>
-        <p>
-            <button>글쓰기</button>
     </div>
-    <hr>
+
     <div class="bestBoardslist">
-        <ol>
-            <li>1위 코멘트 내용
-                <button>공유하기</button>
-                <button class="editBtn">Edit</button>
-            </li>
-            <li>2위 코멘트 내용
-                <button>공유하기</button>
-                <button class="editBtn">Edit</button>
-            </li>
-            <li>3위 코멘트 내용
-                <button>공유하기</button>
-                <button class="editBtn">Edit</button>
-            </li>
-        </ol>
+        <table class="table caption-top">
+            <caption>인기 한줄평</caption>
+            <thead>
+            <tr>
+                <th scope="col"> 순위</th>
+                <th scope="col"> ID</th>
+                <th scope="col"> Sector</th>
+                <th scope="col"> Title</th>
+                <th scope="col"> Comment</th>
+                <th scope="col"> likeCount</th>
+                <th scope="col"> likeBtn</th>
+                <th scope="col"> shareBtn</th>
+                <th scope="col"> editBtn</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td> 이름</td>
+                <td> 섹터</td>
+                <td> 타이틀</td>
+                <td> 내용</td>
+                <td> 좋아요수</td>
+                <td>
+                    <button class="likeBtn">좋아요</button>
+                </td>
+                <td>
+                    <button class="shareBtn">공유하기</button>
+                </td>
+                <td>
+                    <button class="editBtn">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td> 이름</td>
+                <td> 섹터</td>
+                <td> 타이틀</td>
+                <td> 내용</td>
+                <td> 좋아요수</td>
+                <td>
+                    <button class="likeBtn">좋아요</button>
+                </td>
+                <td>
+                    <button class="shareBtn">공유하기</button>
+                </td>
+                <td>
+                    <button class="editBtn">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td> 이름</td>
+                <td> 섹터</td>
+                <td> 타이틀</td>
+                <td> 내용</td>
+                <td> 좋아요수</td>
+                <td>
+                    <button class="likeBtn">좋아요</button>
+                </td>
+                <td>
+                    <button class="shareBtn">공유하기</button>
+                </td>
+                <td>
+                    <button class="editBtn">Edit</button>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
     </div>
     <div class="boardsList">
-        <ul>
-            <li>최근 코멘트 내용
-                <button>공유하기</button>
-                <button class="editBtn">Edit</button>
-            </li>
-            <li>최근 코멘트 내용
-                <button>공유하기</button>
-                <button class="editBtn">Edit</button>
-            </li>
-            <li>최근 코멘트 내용
-                <button>공유하기</button>
-                <button class="editBtn">Edit</button>
-            </li>
-        </ul>
-    </div>
+        <table class="table caption-top">
+            <caption> 최근 한줄평</caption>
+            <thead>
+            <tr>
+                <th scope="col"> 순위</th>
+                <th scope="col"> ID</th>
+                <th scope="col"> Sector</th>
+                <th scope="col"> Title</th>
+                <th scope="col"> Comment</th>
+                <th scope="col"> likeCount</th>
+                <th scope="col"> likeBtn</th>
+                <th scope="col"> shareBtn</th>
+                <th scope="col"> editBtn</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td> 이름</td>
+                <td> 섹터</td>
+                <td> 타이틀</td>
+                <td> 내용</td>
+                <td> 좋아요수</td>
+                <td>
+                    <button class="likeBtn">좋아요</button>
+                </td>
+                <td>
+                    <button class="shareBtn">공유하기</button>
+                </td>
+                <td>
+                    <button class="editBtn">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td> 이름</td>
+                <td> 섹터</td>
+                <td> 타이틀</td>
+                <td> 내용</td>
+                <td> 좋아요수</td>
+                <td>
+                    <button class="likeBtn">좋아요</button>
+                </td>
+                <td>
+                    <button class="shareBtn">공유하기</button>
+                </td>
+                <td>
+                    <button class="editBtn">Edit</button>
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td> 이름</td>
+                <td> 섹터</td>
+                <td> 타이틀</td>
+                <td> 내용</td>
+                <td> 좋아요수</td>
+                <td>
+                    <button class="likeBtn">좋아요</button>
+                </td>
+                <td>
+                    <button class="shareBtn">공유하기</button>
+                </td>
+                <td>
+                    <button class="editBtn">Edit</button>
+                </td>
+            </tr>
 
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
