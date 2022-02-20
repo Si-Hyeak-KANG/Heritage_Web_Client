@@ -70,7 +70,6 @@
             color: gray;
         }
 
-
         .bestBoardsList {
             width: 100%;
             max-width: 3000px;
@@ -89,7 +88,6 @@
             max-width: 3000px;
             width: 100%;
             height: 300px;
-            /*background-color: #E9DADA;*/
             padding-top: 10px;
             padding-left: 20px;
             padding-right: 20px;
@@ -99,21 +97,6 @@
 
         }
 
-        .inputId {
-            width: 100%
-        }
-
-        .inputPw {
-            width: 100%
-        }
-
-        .inputSector {
-            width: 100%
-        }
-
-        .inputTitle {
-            width: 100%
-        }
 
         .bestBoardOne {
 
@@ -131,10 +114,11 @@
     </style>
     <script>
        $(document).ready(function () {
-            showList();
+            show_boardsList();
         });
 
-        function showList() {
+        function show_boardsList() {
+            $('#boardsList').empty()
             $.ajax({
                 type: 'GET',
                 url: '/heritage',
@@ -146,12 +130,18 @@
                         let Sector = rows[i]['Sector']
                         let Title = rows[i]['Title']
                         let Comment = rows[i]['Comment']
+                        let Like = rows[i]['likeBtn']
+                        let Count = rows[i]['likeCount']
+                        let Edit = rows[i]['editBtn']
+
 
                         let temp_html = `<tr>
                                             <td>${ID}</td>
                                             <td>${Sector}</td>
                                             <td>${Title}</td>
                                             <td>${Comment}</td>
+                                            <td>${likeBtn}</td>
+                                            <td>${likeCount}</td>
                                             <td>${editBtn}</td>
                                             </tr>`
                         $('boardsList').append(temp_html)
@@ -191,56 +181,50 @@
 
     </div>
     <div class="inputBox">
-        <div class="wrap">
-            <div class="inputId">
-                <input class="form-control" id="inputId" placeholder="ID" type="inputId">
+        <div class="row g-4">
+            <div class="col-sm">
+                <input type="text" class="form-control" placeholder="ID" aria-label="ID">
             </div>
-            <div class="inputPw">
-                <input class="form-control" id="inputPw" placeholder="PW" type="inputPw">
+            <div class="col-sm">
+                <input type="text" class="form-control" placeholder="PW" aria-label="PW">
             </div>
-            <div class="inputSector">
-                <div class="col-md">
-                    <div class="form-floating">
-                        <select class="form-select" id="floatingSelectGrid">
-                            <option value="1"> 영화</option>
-                            <option value="2"> TV</option>
-                            <option value="3"> 책</option>
-                            <option value="4"> 연극</option>
-                            <option value="5"> 음악</option>
-                            <option value="6"> etc</option>
-                        </select>
-                        <label for="floatingSelectGrid">Select Sector</label>
-                    </div>
-                </div>
-            </div>
-            <div class="inputTitle">
-                <input class="form-control" id="inputTitle" placeholder="Title" type="inputTitle">
-            </div>
+            <div class="col-auto">
+                <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+                <select class="form-select" id="autoSizingSelect">
+                  <option selected>Sector</option>
+                  <option value="1">영화</option>
+                  <option value="2">TV</option>
+                  <option value="3">책</option>
+                </select>
+              </div>
+            <div class="col-sm-7">
+            <input type="text" class="form-control" placeholder="Title" aria-label="Title">
+          </div>
+            <input type="text" class="form-control" placeholder="Comment" aria-label="Comment">
         </div>
-        <div class="inputComment">
-            <div class="mb-3">
-                <input class="form-control" id="exampleFormControlInput1" placeholder=" 당신의 한줄평은 무엇인가요? " type="text">
+        <div class="col-auto">
+            <div class="boardCreateBtn">
+                <button class="btn btn-light" onclick="saveList()" type="button">글쓰기</button>
             </div>
-        </div>
-        <div class="boardCreateBtn">
-            <button class="btn btn-light" onclick="saveList()" type="button">글쓰기</button>
-        </div>
+    </div>
+
     </div>
     <div class="bestBoardsList">
         <div class="bestBoardOne">
             <div class="card" style="width: 100rem;">
                 <div class="ranking">
                     <B>🥇1위</B>
+                    <B>365회</B>
                 </div>
-                  <div class="card-body">
+                <div class="card-body">
                     <h5 class="card-title">해리포터와 비밀의 방</h5>
                     <h6 class="card-subtitle mb-2 text-muted">영화</h6>
                     <p class="card-text">" 윙가르디움 레비오~싸" </p>
                     <p class="card-text">From 헤르미온면</p>
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                      <button type="button" class="btn btn-danger">좋아요</button>
-                      <button type="button" class="btn btn-warning">수정하기</button>
-                    </div>
+<!--                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">-->
+<!--                      <button onclick="likeBtn" type="button" class="btn btn-danger">좋아요</button>-->
+<!--                      <button onclick="editBtn" type="button" class="btn btn-warning">수정하기</button>-->
+<!--                    </div>-->
                   </div>
             </div>
         </div>
@@ -248,16 +232,17 @@
             <div class="card" style="width: 100rem;">
                 <div class="ranking">
                     <B>🥈2위</B>
+                    <B>365회</B>
                 </div>
                   <div class="card-body">
                     <h5 class="card-title">해리포터와 비밀의 방</h5>
                     <h6 class="card-subtitle mb-2 text-muted">영화</h6>
                     <p class="card-text">" 윙가르디움 레비오~싸" </p>
                     <p class="card-text">From 헤르미온면</p>
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                      <button type="button" class="btn btn-danger">좋아요</button>
-                      <button type="button" class="btn btn-warning">수정하기</button>
-                    </div>
+<!--                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">-->
+<!--                      <button type="button" class="btn btn-danger">좋아요</button>-->
+<!--                      <button type="button" class="btn btn-warning">수정하기</button>-->
+<!--                    </div>-->
                   </div>
             </div>
         </div>
@@ -265,34 +250,64 @@
             <div class="card" style="width: 100rem;">
                 <div class="ranking">
                     <B>🥉3위</B>
+                    <B>365회</B>
                 </div>
                   <div class="card-body">
                     <h5 class="card-title">해리포터와 비밀의 방</h5>
                     <h6 class="card-subtitle mb-2 text-muted">영화</h6>
                     <p class="card-text">" 윙가르디움 레비오~싸" </p>
                     <p class="card-text">From 헤르미온면</p>
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                      <button type="button" class="btn btn-danger">좋아요</button>
-                      <button type="button" class="btn btn-warning">수정하기</button>
-                    </div>
+<!--                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">-->
+<!--                      <button type="button" class="btn btn-danger">좋아요</button>-->
+<!--                      <button type="button" class="btn btn-warning">수정하기</button>-->
+<!--                    </div>-->
                   </div>
             </div>
         </div>
 
     </div>
     <div class="boardsList">
-            <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Sector</th>
-            <th scope="col">Title</th>
-            <th scope="col">Comment</th>
-            <th scope="col">Edit</th>
-        </tr>
-        </thead>
-        <tbody id="order-box">
-        </tbody>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Sector</th>
+                <th scope="col">Title</th>
+                <th scope="col">Comment
+                <th scope="col">Like</th>
+                <th scope="col">Count</th>
+                <th scope="col">Edit</th>
+            </tr>
+            </thead>
+            <tbody id="infoList1">
+                <th scope="col">헤르미온면</th>
+                <th scope="col">영화</th>
+                <th scope="col">해리포터와 비밀의 방</th>
+                <th scope="col">" 윙가르디움 레비오~싸 "</th>
+                <th scope="col">365</th>
+                <th scope="col"><button type="button" class="btn btn-outline-danger">Like</button></th>
+                <th scope="col"><button type="button" class="btn btn-outline-warning">Edit</button></th>
+            </tbody>
+            <tbody id="infoList2">
+                <th scope="col">헤르미온면</th>
+                <th scope="col">영화</th>
+                <th scope="col">해리포터와 비밀의 방</th>
+                <th scope="col">" 윙가르디움 레비오~싸 "</th>
+                <th scope="col">365</th>
+                <th scope="col"><button type="button" class="btn btn-outline-danger">Like</button></th>
+                <th scope="col"><button type="button" class="btn btn-outline-warning">Edit</button></th>
+            </tbody>
+            <tbody id="infoList3">
+                <th scope="col">헤르미온면</th>
+                <th scope="col">영화</th>
+                <th scope="col">해리포터와 비밀의 방</th>
+                <th scope="col">" 윙가르디움 레비오~싸 "</th>
+                <th scope="col">365</th>
+                <th scope="col"><button type="button" class="btn btn-outline-danger">Like</button></th>
+                <th scope="col"><button type="button" class="btn btn-outline-warning">Edit</button></th>
+            </tbody>
+
+
     </table>
     </div>
 
