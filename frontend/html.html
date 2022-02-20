@@ -32,12 +32,11 @@
             height: 100px;
             background-color: white;
             padding-left: 50px;
-
         }
 
         .inputBox {
             max-width: 1500px;
-            width :95%;
+            width: 95%;
             height: 160px;
             background: #DAD8D8;
 
@@ -58,7 +57,7 @@
 
         .wrap {
             max-width: 1500px;
-            width :95%;
+            width: 95%;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -70,17 +69,19 @@
             width: 95%;
             color: gray;
         }
-        .boardCreateBtn >button:hover {
-            border: 2px gray;
-        }
+
 
         .bestBoardsList {
             width: 100%;
             max-width: 3000px;
-            height: 250px;
+            height: 300px;
             background-color: #E9DADA;
             margin-top: 30px;
-            padding-top: 10px;
+            padding: 30px 0px 30px 0px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
 
         }
 
@@ -88,29 +89,93 @@
             max-width: 3000px;
             width: 100%;
             height: 300px;
-            background-color: #E9DADA;
+            /*background-color: #E9DADA;*/
             padding-top: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
         }
+
+        .editBtn {
+
+        }
+
+        .inputId {
+            width: 100%
+        }
+
+        .inputPw {
+            width: 100%
+        }
+
+        .inputSector {
+            width: 100%
+        }
+
+        .inputTitle {
+            width: 100%
+        }
+
+        .bestBoardOne {
+
+            max-width: 490px;
+            width: 33%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            padding-right: 5px;
+            background-color: transparent;
+        }
+
     </style>
     <script>
-        function save(){
-            alert('글쓰기 완료!');
+       $(document).ready(function () {
+            showList();
+        });
+
+        function showList() {
+            $.ajax({
+                type: 'GET',
+                url: '/heritage',
+                data: {},
+                success: function (response) {
+                    let rows = response['boardsList']
+                    for (let i = 0; i < rows.length; i++) {
+                        let ID = rows[i]['ID']
+                        let Sector = rows[i]['Sector']
+                        let Title = rows[i]['Title']
+                        let Comment = rows[i]['Comment']
+
+                        let temp_html = `<tr>
+                                            <td>${ID}</td>
+                                            <td>${Sector}</td>
+                                            <td>${Title}</td>
+                                            <td>${Comment}</td>
+                                            <td>${editBtn}</td>
+                                            </tr>`
+                        $('boardsList').append(temp_html)
+                    }
+                }
+            });
         }
 
-        function like() {
-            alert('좋아요+1');
-        }
+        function saveList() {
+            let ID = $('#inputId').val()
+            let PW = $('#inputPw').val()
+            let Sector = $('#inputSector').val()
+            let Title = $('#inputTitle').val()
+            let Comment = $('#inputComment').val()
 
-        function share() {
-            alert('링크가 복사되었습니다.');
-        }
-
-        function open_edit() {
-            alert('편집열기');
-        }
-
-        function close_edit() {
-            alert('편집닫기');
+            $.ajax({
+                type: 'POST',
+                url: '/heritage',
+                data: {ID_give: ID, PW_give: PW, Sector_give: Sector, Title_give: Title, Comment_give : Comment},
+                success: function (response) {
+                    alert(response['msg'])
+                    window.location.reload()
+                }
+            });
         }
     </script>
 </head>
@@ -158,169 +223,77 @@
             </div>
         </div>
         <div class="boardCreateBtn">
-            <button onclick="save()" type="button" class="btn btn-light"> 글쓰기 </button>
+            <button class="btn btn-light" onclick="saveList()" type="button">글쓰기</button>
         </div>
-        </div>
-
+    </div>
     <div class="bestBoardsList">
-        <table class="table caption-top">
-            <caption>인기 한줄평</caption>
-            <thead>
-            <tr>
-                <th scope="col"> 순위</th>
-                <th scope="col"> ID</th>
-                <th scope="col"> Sector</th>
-                <th scope="col"> Title</th>
-                <th scope="col"> Comment</th>
-                <th scope="col"> likeCount</th>
-                <th scope="col"> likeBtn</th>
-                <th scope="col"> shareBtn</th>
-                <th scope="col"> editBtn</th>
-            </tr>
-            </thead>
-            <tbody>
-                <div class="bestBoardOne">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td> 이름</td>
-                        <td> 섹터</td>
-                        <td> 타이틀</td>
-                        <td> 내용</td>
-                        <td> 좋아요수</td>
-                        <td class="likeBtn">
-                            <button class="btn btn-outline-secondary" onclick="like()" type="button">Like</button>
-                        </td>
-                        <td class="shareBtn">
-                            <button class="btn btn-outline-secondary" onclick="share()" type="button">Share</button>
-                        </td>
-                        <td class="editBtn">
-                            <button class="btn btn-outline-secondary" onclick="edit()" type="button">Edit</button>
-                        </td>
-
-                    </tr>
+        <div class="bestBoardOne">
+            <div class="card" style="width: 100rem;">
+                <div class="ranking">
+                    <B>🥇1위</B>
                 </div>
-                <div class="bestBoardOne">
-                    <tr>
-                        <th scope="row">2</th>
-                        <td> 이름</td>
-                        <td> 섹터</td>
-                        <td> 타이틀</td>
-                        <td> 내용</td>
-                        <td> 좋아요수</td>
-                        <td class="likeBtn">
-                            <button class="btn btn-outline-secondary" onclick="like()" type="button">Like</button>
-                        </td>
-                        <td class="shareBtn">
-                            <button class="btn btn-outline-secondary" onclick="share()" type="button">Share</button>
-                        </td>
-                        <td class="editBtn">
-                            <button class="btn btn-outline-secondary" onclick="edit()" type="button">Edit</button>
-
-                        </td>
-
-                    </tr>
+                  <div class="card-body">
+                    <h5 class="card-title">해리포터와 비밀의 방</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">영화</h6>
+                    <p class="card-text">" 윙가르디움 레비오~싸" </p>
+                    <p class="card-text">From 헤르미온면</p>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                      <button type="button" class="btn btn-danger">좋아요</button>
+                      <button type="button" class="btn btn-warning">수정하기</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="bestBoardOne">
+            <div class="card" style="width: 100rem;">
+                <div class="ranking">
+                    <B>🥈2위</B>
                 </div>
-                <div class="bestBoardOne">
-                    <tr>
-                        <th scope="row">3</th>
-                        <td> 이름</td>
-                        <td> 섹터</td>
-                        <td> 타이틀</td>
-                        <td> 내용</td>
-                        <td> 좋아요수</td>
-                        <td class="likeBtn">
-                            <button class="btn btn-outline-secondary" onclick="like()" type="button">Like</button>
-                        </td>
-                        <td class="shareBtn">
-                            <button class="btn btn-outline-secondary" onclick="share()" type="button">Share</button>
-                        </td>
-                        <td class="editBtn">
-                            <button class="btn btn-outline-secondary" onclick="edit()" type="button">Edit</button>
-                        </td>
-
-                    </tr>
+                  <div class="card-body">
+                    <h5 class="card-title">해리포터와 비밀의 방</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">영화</h6>
+                    <p class="card-text">" 윙가르디움 레비오~싸" </p>
+                    <p class="card-text">From 헤르미온면</p>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                      <button type="button" class="btn btn-danger">좋아요</button>
+                      <button type="button" class="btn btn-warning">수정하기</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <div class="bestBoardOne">
+            <div class="card" style="width: 100rem;">
+                <div class="ranking">
+                    <B>🥉3위</B>
                 </div>
+                  <div class="card-body">
+                    <h5 class="card-title">해리포터와 비밀의 방</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">영화</h6>
+                    <p class="card-text">" 윙가르디움 레비오~싸" </p>
+                    <p class="card-text">From 헤르미온면</p>
+                    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                      <button type="button" class="btn btn-danger">좋아요</button>
+                      <button type="button" class="btn btn-warning">수정하기</button>
+                    </div>
+                  </div>
+            </div>
+        </div>
 
-            </tbody>
-        </table>
     </div>
     <div class="boardsList">
-        <table class="table caption-top">
-            <caption> 최근 한줄평</caption>
-            <thead>
-            <tr>
-                <th scope="col"> 순위</th>
-                <th scope="col"> ID</th>
-                <th scope="col"> Sector</th>
-                <th scope="col"> Title</th>
-                <th scope="col"> Comment</th>
-                <th scope="col"> likeCount</th>
-                <th scope="col"> likeBtn</th>
-                <th scope="col"> shareBtn</th>
-                <th scope="col"> editBtn</th>
-            </tr>
-            </thead>
-            <tbody>
-              <div class="boardOne">
-                <tr>
-                    <th scope="row">1</th>
-                    <td> 이름</td>
-                    <td> 섹터</td>
-                    <td> 타이틀</td>
-                    <td> 내용</td>
-                    <td> 좋아요수</td>
-                    <td class="likeBtn">
-                        <button class="btn btn-outline-secondary" type="button">Like</button>
-                    </td>
-                    <td class="shareBtn">
-                        <button class="btn btn-outline-secondary" type="button">Share</button>
-                    </td>
-                    <td class="editBtn">
-                        <button class="btn btn-outline-secondary" type="button">Edit</button>
-                    </td>
-                </tr>
-              </div>
-              <div class="boardOne">
-                <tr>
-                    <th scope="row">2</th>
-                    <td> 이름</td>
-                    <td> 섹터</td>
-                    <td> 타이틀</td>
-                    <td> 내용</td>
-                    <td> 좋아요수</td>
-                    <td class="likeBtn">
-                        <button class="btn btn-outline-secondary" type="button">Like</button>
-                    </td>
-                    <td class="shareBtn">
-                        <button class="btn btn-outline-secondary" type="button">Share</button>
-                    </td>
-                    <td class="editBtn">
-                        <button class="btn btn-outline-secondary" type="button">Edit</button>
-                    </td>
-                </tr>
-              </div>
-              <div class="boardOne">
-                <tr>
-                    <th scope="row">3</th>
-                    <td> 이름</td>
-                    <td> 섹터</td>
-                    <td> 타이틀</td>
-                    <td> 내용</td>
-                    <td> 좋아요수</td>
-                    <td class="likeBtn">
-                        <button class="btn btn-outline-secondary" type="button">Like</button>
-                    </td>
-                    <td class="shareBtn">
-                        <button class="btn btn-outline-secondary" type="button">Share</button>
-                    </td>
-                    <td class="editBtn">
-                        <button class="btn btn-outline-secondary" type="button">Edit</button>
-                    </td>
-                </tr>
-              </div>
-
-            </tbody>
-        </table>
+            <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Sector</th>
+            <th scope="col">Title</th>
+            <th scope="col">Comment</th>
+            <th scope="col">Edit</th>
+        </tr>
+        </thead>
+        <tbody id="order-box">
+        </tbody>
+    </table>
     </div>
 
 </body>
