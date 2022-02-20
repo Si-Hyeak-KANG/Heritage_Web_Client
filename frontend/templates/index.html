@@ -57,7 +57,7 @@
 
         .wrap {
             max-width: 1500px;
-            width: 95%;
+            width: 100%;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -94,9 +94,7 @@
         }
 
         .editBtn {
-
         }
-
 
         .bestBoardOne {
 
@@ -111,44 +109,60 @@
             background-color: transparent;
         }
 
+        .inputId{
+            width: 100%;
+        }
+
+        .inputPw{
+            width: 100%;
+        }
+
+        .inputSector{
+            width: 100%;
+        }
+        .inputTitle{
+            width: 100%;
+        }
+
+
     </style>
     <script>
-       $(document).ready(function () {
-            show_boardsList();
-        });
-
-        function show_boardsList() {
-            $('#boardsList').empty()
-            $.ajax({
-                type: 'GET',
-                url: '/heritage',
-                data: {},
-                success: function (response) {
-                    let rows = response['boardsList']
-                    for (let i = 0; i < rows.length; i++) {
-                        let ID = rows[i]['ID']
-                        let Sector = rows[i]['Sector']
-                        let Title = rows[i]['Title']
-                        let Comment = rows[i]['Comment']
-                        let Like = rows[i]['likeBtn']
-                        let Count = rows[i]['likeCount']
-                        let Edit = rows[i]['editBtn']
-
-
-                        let temp_html = `<tr>
-                                            <td>${ID}</td>
-                                            <td>${Sector}</td>
-                                            <td>${Title}</td>
-                                            <td>${Comment}</td>
-                                            <td>${likeBtn}</td>
-                                            <td>${likeCount}</td>
-                                            <td>${editBtn}</td>
-                                            </tr>`
-                        $('boardsList').append(temp_html)
-                    }
-                }
-            });
-        }
+       // $(document).ready(function () {
+       //      show_boardsList();
+       //  });
+       //
+       //  function show_boardsList() {
+       //      $('#boardsList').empty()
+       //      $.ajax({
+       //          type: 'GET',
+       //          url: '/heritage',
+       //          data: {},
+       //          success: function (response) {
+       //              let rows = response['boardsList']
+       //              for (let i = 0; i < rows.length; i++) {
+       //                  let ID = rows[i]['ID']
+       //                  let Sector = rows[i]['Sector']
+       //                  let Title = rows[i]['Title']
+       //                  let Comment = rows[i]['Comment']
+       //                  let Like = rows[i]['likeBtn']
+       //                  let Count = rows[i]['likeCount']
+       //                  let Edit = rows[i]['editBtn']
+       //
+       //
+       //                  let temp_html = `<tr>
+       //                                      <td>${ID}</td>
+       //                                      <td>${Sector}</td>
+       //                                      <td>${Title}</td>
+       //                                      <td>${Comment}</td>
+       //                                      <td>${likeBtn}</td>
+       //                                      <td>${likeCount}</td>
+       //                                      <td>${editBtn}</td>
+       //                                      </tr>`
+       //                  $('boardsList').append(temp_html)
+       //              }
+       //          }
+       //      });
+       //  }
 
         function saveList() {
             let ID = $('#inputId').val()
@@ -156,11 +170,12 @@
             let Sector = $('#inputSector').val()
             let Title = $('#inputTitle').val()
             let Comment = $('#inputComment').val()
+            // let likeCount = $('#likecount').val()
 
             $.ajax({
                 type: 'POST',
                 url: '/heritage',
-                data: {ID_give: ID, PW_give: PW, Sector_give: Sector, Title_give: Title, Comment_give : Comment},
+                data: { ID_give: ID, PW_give: PW, Sector_give: Sector, Title_give: Title, Comment_give : Comment},
                 success: function (response) {
                     alert(response['msg'])
                     window.location.reload()
@@ -170,42 +185,43 @@
     </script>
 </head>
 <body>
-    <div class="headBox">
-
-    </div>
+    <div class="headBox"></div>
     <div class="logoBox">
-        <p style="text-align:left;">
-        <h1><B> Heritage </B></h1>
-        <h5> 내 취향이 모두의 문화가 되는 곳</h5>
+        <p>
+            <h1><B> Heritage </B></h1>
+            <h5> 내 취향이 모두의 문화가 되는 곳</h5>
         </p>
-
     </div>
     <div class="inputBox">
         <div class="row g-4">
-            <div class="col-sm">
-                <input type="text" class="form-control" placeholder="ID" aria-label="ID">
+            <div class="wrap">
+                <div class="col-sm">
+                        <input id="inputId" type="text" class="form-control" placeholder="ID" aria-label="ID">
+                    </div>
+                <div class="col-sm">
+                    <input id="inputPw" type="text" class="form-control" placeholder="PW" aria-label="PW">
+                </div>
+                <div class="col-auto">
+                    <label id="inputSector" class="visually-hidden" for="autoSizingSelect">Preference</label>
+                    <select class="form-select" id="autoSizingSelect">
+                      <option selected>Sector</option>
+                      <option value="1">영화</option>
+                      <option value="2">TV</option>
+                      <option value="3">책</option>
+                    </select>
+                </div>
+                <div class="col-sm">
+                    <input id="inputTitle" type="text" class="form-control" placeholder="Title" aria-label="Title">
+                </div>
             </div>
-            <div class="col-sm">
-                <input type="text" class="form-control" placeholder="PW" aria-label="PW">
-            </div>
-            <div class="col-auto">
-                <label class="visually-hidden" for="autoSizingSelect">Preference</label>
-                <select class="form-select" id="autoSizingSelect">
-                  <option selected>Sector</option>
-                  <option value="1">영화</option>
-                  <option value="2">TV</option>
-                  <option value="3">책</option>
-                </select>
-              </div>
-            <div class="col-sm-7">
-            <input type="text" class="form-control" placeholder="Title" aria-label="Title">
-          </div>
-            <input type="text" class="form-control" placeholder="Comment" aria-label="Comment">
+            <input id="inputComment" type="text" class="form-control" placeholder="Comment" aria-label="Comment">
+
         </div>
-        <div class="col-auto">
-            <div class="boardCreateBtn">
-                <button class="btn btn-light" onclick="saveList()" type="button">글쓰기</button>
-            </div>
+        <div class="boardCreateBtn">
+           <div class="col-auto">
+               <button onclick="saveList()" class="btn btn-light"  type="button">글쓰기</button>
+           </div>
+        </div>
     </div>
 
     </div>

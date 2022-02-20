@@ -1,0 +1,39 @@
+# Flask 연결 위해 import
+from flask import Flask, render_template, request, jsonify
+app = Flask(__name__)
+# DB 연결 위해 항상 import하는 5줄
+from pymongo import MongoClient
+import certifi
+ca = certifi.where()
+client = MongoClient('mongodb+srv://test:sparta@cluster0.fh0w7.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
+db = client.dbsparta
+
+@app.route('/')
+def home():
+   return render_template('index.html')
+
+@app.route("/heritage", methods=["POST"])
+def web_mars_post():
+    ID_receive = request.form['ID_give']
+    PW_receive = request.form['PW_give']
+    Sector_receive = request.form['Sector_give']
+    Title_receive = request.form['Title_give']
+    Comment_receive = request.form['Comment_give']
+    # likeCount_receive  = request.form['likeCount_give']
+    doc = {
+        'ID': ID_receive,
+        'PW' : PW_receive,
+        'Sector' : Sector_receive,
+        'Title' : Title_receive,
+        'Comment' : Comment_receive
+        # 'likeCount' : likeCount_receive
+    }
+    db.heritage.insert_one(doc)
+    return jsonify({'msg': '글쓰기 완료!'})
+
+@app.route("/mars", methods=["GET"])
+def web_mars_get():
+    return jsonify({'msg': 'GET 연결 완료!'})
+
+if __name__ == '__main__':
+   app.run('0.0.0.0', port=5000, debug=True)
