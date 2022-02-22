@@ -65,8 +65,13 @@
             color: gray;
         }
 
-        .inputComment {
-            width: 95%;
+        .wrap2 {
+            max-width: 1500px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
             color: gray;
         }
 
@@ -82,6 +87,22 @@
             align-items: center;
             justify-content: center;
 
+        }
+
+        .editBox{
+            max-width: 1500px;
+            width: 95%;
+            height: 160px;
+            background: #DAD8D8;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            margin: auto;
+
+            box-shadow: 0px 3px 5px 0px gray;
         }
 
         .boardsList {
@@ -158,6 +179,40 @@
                                             <td>365</td>
                                             <td><button type="button" class="btn btn-outline-danger">Like</button></td>
                                             <td><button type="button" class="btn btn-outline-warning">Edit</button></td>
+                                            <td>
+                                               <div class="inputBox">
+                                                    <div class="row g-4">
+                                                        <div class="wrap">
+                                                            <div class="col-sm">
+                                                                    <input id="inputId" type="text" class="form-control" placeholder="ID" aria-label="ID">
+                                                                </div>
+                                                            <div class="col-sm">
+                                                                <input id="inputPw" type="text" class="form-control" placeholder="PW" aria-label="PW">
+                                                            </div>
+                                                            <div class="col-auto">
+                                                                <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+                                                                <select class="form-select" id="autoSizingSelect">
+                                                                  <option selected>Sector</option>
+                                                                  <option value="영화">영화</option>
+                                                                  <option value="TV">TV</option>
+                                                                  <option value="책">책</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-sm">
+                                                                <input id="inputTitle" type="text" class="form-control" placeholder="Title" aria-label="Title">
+                                                            </div>
+                                                        </div>
+                                                        <div class="wrap2">
+                                                            <input id="inputComment" type="text" class="form-control" placeholder="Comment" aria-label="Comment">
+                                                        </div>
+                                                    </div>
+                                                    <div class="boardCreateBtn">
+                                                       <div class="col-auto">
+                                                           <button onclick="saveList()" class="btn btn-light"  type="button">글쓰기</button>
+                                                       </div>
+                                                    </div>
+                                                </div>
+                                            </td>
                                           </tr>`
 
                                         $('#listBox').append(temp_html)
@@ -216,8 +271,9 @@
                     <input id="inputTitle" type="text" class="form-control" placeholder="Title" aria-label="Title">
                 </div>
             </div>
-            <input id="inputComment" type="text" class="form-control" placeholder="Comment" aria-label="Comment">
-
+            <div class="wrap2">
+                <input id="inputComment" type="text" class="form-control" placeholder="Comment" aria-label="Comment">
+            </div>
         </div>
         <div class="boardCreateBtn">
            <div class="col-auto">
