@@ -91,6 +91,10 @@
             padding-top: 10px;
             padding-left: 20px;
             padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .editBtn {
@@ -127,42 +131,35 @@
 
     </style>
     <script>
-       // $(document).ready(function () {
-       //      show_boardsList();
-       //  });
-       //
-       //  function show_boardsList() {
-       //      $('#boardsList').empty()
-       //      $.ajax({
-       //          type: 'GET',
-       //          url: '/heritage',
-       //          data: {},
-       //          success: function (response) {
-       //              let rows = response['boardsList']
-       //              for (let i = 0; i < rows.length; i++) {
-       //                  let ID = rows[i]['ID']
-       //                  let Sector = rows[i]['Sector']
-       //                  let Title = rows[i]['Title']
-       //                  let Comment = rows[i]['Comment']
-       //                  let Like = rows[i]['likeBtn']
-       //                  let Count = rows[i]['likeCount']
-       //                  let Edit = rows[i]['editBtn']
-       //
-       //
-       //                  let temp_html = `<tr>
-       //                                      <td>${ID}</td>
-       //                                      <td>${Sector}</td>
-       //                                      <td>${Title}</td>
-       //                                      <td>${Comment}</td>
-       //                                      <td>${likeBtn}</td>
-       //                                      <td>${likeCount}</td>
-       //                                      <td>${editBtn}</td>
-       //                                      </tr>`
-       //                  $('boardsList').append(temp_html)
-       //              }
-       //          }
-       //      });
-       //  }
+        $(document).ready(function () {
+            showList();
+        });
+        function showList() {
+            $.ajax({
+                type: 'GET',
+                url: '/heritage',
+                data: {},
+                success: function (response) {
+                    let rows = response['lists']
+                    for (let i = 0; i< rows.length; i++) {
+                        let ID = rows[i]['ID']
+                        let Sector = rows[i]['Sector']
+                        let Title = rows[i]['Title']
+                        let Comment = rows[i]['Comment']
+
+                        let temp_html = `<th scope="col">${ID}</th>
+                                        <th scope="col">${Sector}</th>
+                                        <th scope="col">${Title}</th>
+                                        <th scope="col">" ${Comment} "</th>
+                                        <th scope="col">365</th>
+                                        <th scope="col"><button type="button" class="btn btn-outline-danger">Like</button></th>
+                                        <th scope="col"><button type="button" class="btn btn-outline-warning">Edit</button></th>`
+
+                                        $('#listBox').append(temp_html)
+                    }
+                }
+            });
+        }
 
         function saveList() {
             let ID = $('#inputId').val()
@@ -295,36 +292,10 @@
                 <th scope="col">Edit</th>
             </tr>
             </thead>
-            <tbody id="infoList1">
-                <th scope="col">헤르미온면</th>
-                <th scope="col">영화</th>
-                <th scope="col">해리포터와 비밀의 방</th>
-                <th scope="col">" 윙가르디움 레비오~싸 "</th>
-                <th scope="col">365</th>
-                <th scope="col"><button type="button" class="btn btn-outline-danger">Like</button></th>
-                <th scope="col"><button type="button" class="btn btn-outline-warning">Edit</button></th>
-            </tbody>
-            <tbody id="infoList2">
-                <th scope="col">헤르미온면</th>
-                <th scope="col">영화</th>
-                <th scope="col">해리포터와 비밀의 방</th>
-                <th scope="col">" 윙가르디움 레비오~싸 "</th>
-                <th scope="col">365</th>
-                <th scope="col"><button type="button" class="btn btn-outline-danger">Like</button></th>
-                <th scope="col"><button type="button" class="btn btn-outline-warning">Edit</button></th>
-            </tbody>
-            <tbody id="infoList3">
-                <th scope="col">헤르미온면</th>
-                <th scope="col">영화</th>
-                <th scope="col">해리포터와 비밀의 방</th>
-                <th scope="col">" 윙가르디움 레비오~싸 "</th>
-                <th scope="col">365</th>
-                <th scope="col"><button type="button" class="btn btn-outline-danger">Like</button></th>
-                <th scope="col"><button type="button" class="btn btn-outline-warning">Edit</button></th>
-            </tbody>
+            <tbody id="listBox">
 
-
-    </table>
+            </tbody>
+        </table>
     </div>
 
 </body>
