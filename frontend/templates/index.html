@@ -96,6 +96,7 @@
             background: #DAD8D8;
 
             margin: auto;
+            margin-top: 20px;
             box-shadow: 0px 3px 5px 0px gray;
 
             display: none;
@@ -174,15 +175,17 @@
                         let Comment = rows[i]['Comment']
 
                         let temp_html =  `<tr>
-                                            <td>${ID}</td>
-                                            <td>${Sector}</td>
-                                            <td>${Title}</td>
-                                            <td>" ${Comment} "</td>
-                                            <td>365</td>
-                                            <td><button id="likeBtn" type="button" class="btn btn-outline-danger">Like</button></td>
-                                            <td><button onclick="open_box()" id="editBtn" type="button" class="btn btn-outline-warning">Edit</button></td>
-                                            <td>
-                                               <div class="editBox" id="Box">
+                                              <td>${ID}</td>
+                                              <td>${Sector}</td>
+                                              <td>${Title}</td>
+                                              <td>" ${Comment} "</td>
+                                              <td>365</td>
+                                              <td><button id="likeBtn" type="button" class="btn btn-outline-danger">Like</button></td>
+                                              <td><button onclick="open_box()" id="editBtn" type="button" class="btn btn-outline-warning">Edit</button></td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="7">
+                                                <div class="editBox" id="Box">
                                                     <div class="row g-4">
                                                         <div class="wrap">
                                                             <div class="col-sm">
@@ -215,8 +218,12 @@
                                                        </div>
                                                     </div>
                                                 </div>
-                                            </td>
+                                              </td>
+
+
                                           </tr>`
+
+
 
                                         $('#listBox').append(temp_html)
                     }
