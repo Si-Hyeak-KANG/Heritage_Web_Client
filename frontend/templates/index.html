@@ -90,22 +90,23 @@
         }
 
         .editBox{
-
             max-width: 1500px;
             width: 95%;
-            height: 160px;
+            height: 170px;
             background: #DAD8D8;
-
-            /*display: flex;*/
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
 
             margin: auto;
             box-shadow: 0px 3px 5px 0px gray;
 
             display: none;
 
+        }
+
+        .editBoxBtn{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .boardsList {
@@ -185,8 +186,8 @@
                                                     <div class="row g-4">
                                                         <div class="wrap">
                                                             <div class="col-sm">
-                                                                    <input id="inputId" type="text" class="form-control" placeholder="ID" aria-label="ID">
-                                                                </div>
+                                                                <input id="inputId" type="text" class="form-control" placeholder="ID" aria-label="ID">
+                                                            </div>
                                                             <div class="col-sm">
                                                                 <input id="inputPw" type="text" class="form-control" placeholder="PW" aria-label="PW">
                                                             </div>
@@ -207,7 +208,7 @@
                                                             <input id="inputComment" type="text" class="form-control" placeholder="Comment" aria-label="Comment">
                                                         </div>
                                                     </div>
-                                                    <div class="boardCreateBtn">
+                                                    <div class="editBoxBtn" id="boxBtn">
                                                        <div class="col-auto">
                                                            <button onclick="close_box()" id="boardUpdateBtn" class="btn btn-light"  type="button">수정하기</button>
                                                            <button onclick="close_box()" id="boardDeleteBtn" class="btn btn-light"  type="button">삭제하기</button>
@@ -237,6 +238,16 @@
                 data: { ID_give: ID, PW_give: PW, Sector_give: Sector, Title_give: Title, Comment_give : Comment},
                 success: function (response) {
                     alert(response['msg'])
+                    window.location.reload()
+                }
+            });
+
+            $.ajax({
+                type: 'DELETE',
+                url: '/board/{:boardNum}',
+                data: {},
+                success: function (response) {
+                    alert('글이 삭제되었습니다.')
                     window.location.reload()
                 }
             });
